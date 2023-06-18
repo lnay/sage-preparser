@@ -1,0 +1,3 @@
+[submodule "tree-sitter-sage"]
+	path = tree-sitter-sage
+	url = git@github.com:lnay/tree-sitter-sage.git

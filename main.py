@@ -30,17 +30,21 @@ def process(node=ast_tree().root_node, code=SAMPLE_CODE):
     cursor = start
     if node.type == "integer":
         print("Integer(", end="")
-        output(start, end)
+        #output(start, end)
+        print(code[start: end].decode("utf-8"), end="")
         print(")", end="")
+        return
     if node.type == "module":
         print("from sage.all_cmdline import *")
     for child_node in node.children:
         child_start = child_node.start_byte
         child_end = child_node.end_byte
-        output(cursor, child_start, end_include=False)
+        #output(cursor, child_start)
+        print(code[cursor: child_start].decode("utf-8"), end="")
         process(child_node, code)
-        cursor = child_end+1
-    output(cursor, end)
+        cursor = child_end
+    #output(cursor, end)
+    print(code[cursor: end].decode("utf-8"), end="")
 
 process()
 

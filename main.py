@@ -2,11 +2,7 @@ from tree_sitter import Language, Parser
 
 PY_LANGUAGE = Language('build/sage.so', 'python')
 
-SAMPLE_CODE = bytes("""
-x = 2^4
-
-# y = 4.sqrt()
-""", "utf8")
+SAMPLE_CODE = open("input.sage", "rb").read()
 
 def ast_tree(code=SAMPLE_CODE):
     parser = Parser()

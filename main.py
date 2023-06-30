@@ -34,6 +34,11 @@ def process(node=ast_tree().root_node, code=SAMPLE_CODE):
         print(code[start: end].decode("utf-8"), end="")
         print(")", end="")
         return
+    if node.type == "float":
+        print("RealNumber('", end="")
+        print(code[start: end].decode("utf-8"), end="")
+        print("')", end="")
+        return
     if node.type == "module":
         print("from sage.all_cmdline import *")
     for child_node in node.children:

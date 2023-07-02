@@ -1,5 +1,4 @@
 x = 2^4
-
 z = 2.2*5
-
-# y = 4.sqrt()
+print(20r)
+print(20r+1.2r)

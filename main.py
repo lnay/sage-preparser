@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from tree_sitter import Language, Parser
 
 PY_LANGUAGE = Language('build/sage.so', 'python')

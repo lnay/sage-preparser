@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from tree_sitter import Language
 
 Language.build_library(

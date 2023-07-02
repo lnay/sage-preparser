@@ -1,35 +1,22 @@
 #!/usr/bin/env python
 
+import sys
 from tree_sitter import Language, Parser
 
 PY_LANGUAGE = Language('build/sage.so', 'python')
 
-SAMPLE_CODE = open("input.sage", "rb").read()
-
-def ast_tree(code=SAMPLE_CODE):
+def ast_tree(code):
     parser = Parser()
     parser.set_language(PY_LANGUAGE)
-    tree = parser.parse(code)
-    return tree
+    return parser.parse(code)
 
-def capture_ints(tree=ast_tree()):
-    PY_LANGUAGE.query("(integer) @").captures(tree.root_node)
-
-def output(start_byte, end_byte, code=SAMPLE_CODE, start_include=True, end_include=True):
-    if not start_include:
-        start_byte += 1
-    if not end_include:
-        end_byte -= 1
-    print(code[start_byte:end_byte].decode("utf-8"), end="")
-
-def process(node=ast_tree().root_node, code=SAMPLE_CODE):
+def process(code, node):
     start = node.start_byte
     end = node.end_byte
     cursor = start
 
     if node.type == "sage_integer":
         print("Integer(", end="")
-        #output(start, end)
         print(code[start: end].decode("utf-8"), end="")
         print(")", end="")
         return
@@ -55,12 +42,20 @@ def process(node=ast_tree().root_node, code=SAMPLE_CODE):
     for child_node in node.children:
         child_start = child_node.start_byte
         child_end = child_node.end_byte
-        #output(cursor, child_start)
         print(code[cursor: child_start].decode("utf-8"), end="")
-        process(child_node, code)
+        process(code, node=child_node)
         cursor = child_end
 
     print(code[cursor: end].decode("utf-8"), end="")
 
-process()
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: ./main.py <filename>")
+        exit(1)
+
+    file_name = sys.argv[1]
+    input_code = open(file_name, "rb").read()
+
+    process(input_code, ast_tree(input_code).root_node)
 

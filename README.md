@@ -21,6 +21,7 @@ APIs to create a more structure-aware SageMath to Python translator.
 
 ## Usage
 - Clone this repo along with subrepositories (`git clone --recursive ...`)
+- Create/update a python environment to have the pip packages in `requirements.txt`
 - Build the "sage" (work in progress) tree-sitter parser with `./build-parser.py`
 - Run with `./sage2python.py <sage file>`, to have the generated python code
   printed to stdout

@@ -6,3 +6,4 @@ print(f"{20r}")
 print(f"{1/3}")
 print(f"calling method on integer: {4.sqrt()}")
 print(f"calling method on real: {4.0.sqrt()}")
+x.20
